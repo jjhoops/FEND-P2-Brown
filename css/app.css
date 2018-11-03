@@ -85,13 +85,16 @@ h1 {
  * Styles for the Score Panel
  */
 
-.score-panel {
-    text-align: left;
-    width: 345px;
+ .score-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 500px;
     margin-bottom: 10px;
 }
 
 .score-panel .stars {
+    float: left;
     margin: 0;
     padding: 0;
     display: inline-block;
@@ -100,7 +103,7 @@ h1 {
 
 .score-panel .stars li {
     list-style: none;
-    display: inline-block;
+    display: inline-block
 }
 
 .score-panel .restart {

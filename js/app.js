@@ -58,6 +58,45 @@ function clickValidation(eventTarget, eventClasses) {
         !eventClasses.contains('match')
     )
 }
+
+function checkMatch() { //Once two cards are selected, check if they match
+    let first = toggledCards[0];
+    let second = toggledCards[1];
+    let firstName = first.firstElementChild.className;
+    let secondName = second.firstElementChild.className;
+    if (firstName === secondName) { //Toggle match class if a match
+        first.classList.toggle('match');
+        second.classList.toggle('match');
+        toggledCards = []; //Reset the array of chosen cards
+        matchedPairs++;
+    } else {
+        setTimeout(function() { // Delay before flipping unmatched cards back
+            toggleCard(first);
+            toggleCard(second);
+            toggledCards = [];
+        }, 1000);
+        clickEnable = true;
+    }
+}
+
+function updateStars() { //Check for condition to remove a star
+    if (moves === 10 || moves === 15) {
+        removeStar();
+        stars--;
+    }
+}
+
+function removeStar() { //Remove a star from the display
+    const starsDisplay = document.querySelectorAll('.stars li');
+    for (star of starsDisplay) {
+        if (star.style.display !== 'none') { //Hides the next star
+            star.style.display = 'none';
+            break;
+        }
+    }
+}
+
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -76,6 +115,10 @@ for (card of cards) {
             if (toggledCards.length < 2) {
                 toggleCard(eventTarget);
                 addToggleCard(eventTarget);
+            }
+            if (toggledCards.length === 2) { //Check match and update game functions once 2 selected
+                checkMatch();
+                updateStars();
             }
             }
     });
