@@ -1,7 +1,8 @@
 /*
  * Create a list that holds all of your cards
  */
-
+var deck = document.querySelector('.deck');
+var cards = document.querySelectorAll('.card');
 
 /*
  * Display the cards on the page
@@ -24,8 +25,17 @@ function shuffle(array) {
 
     return array;
 }
-
-
+function shuffleCards() { //Uses Shuffle function to shuffle deck; reset when shuffled
+    const currentDeck = Array.from(document.querySelectorAll('.deck li'));
+    const newDeck = shuffle(currentDeck);
+    for (card of newDeck) {
+        resetCard(card);
+        deck.appendChild(card);
+    }
+}
+function resetCard(eventTarget) { //Reset card to not showing
+    eventTarget.className = 'card';
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
