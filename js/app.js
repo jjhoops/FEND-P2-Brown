@@ -4,6 +4,11 @@
 var deck = document.querySelector('.deck');
 var cards = document.querySelectorAll('.card');
 var toggledCards = []; // Keep track of cards chosen
+var moves = 0; // # of moves in the game
+var timer = 0; // Game timer
+var timerRunning = false;
+var timeDisplay;
+var stars = 3; // Keep track of stars remaining
 
 /*
  * Display the cards on the page
@@ -96,6 +101,27 @@ function removeStar() { //Remove a star from the display
     }
 }
 
+function startTimer() {
+    timeDisplay = setInterval(function() {
+        timer++;
+        displayTimer();
+    }, 1000); //1000ms = 1s
+}
+
+function stopTimer() {
+    clearInterval(timeDisplay);
+}
+
+function displayTimer() { //Display timer on screen
+    const clock = document.querySelector('.clock');
+    let minutes = Math.floor(timer / 60);
+    let seconds = timer % 60;
+    if (seconds < 10) { //To deal with conversion to time display
+        clock.innerHTML = `${minutes}:0${seconds}`;
+    } else {
+        clock.innerHTML = `${minutes}:${seconds}`;
+    }
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -112,6 +138,10 @@ for (card of cards) {
         const eventTarget = event.target;
         let eventClasses = event.target.classList;
         if (clickValidation(eventTarget, eventClasses)) {
+            if (!timerRunning) {
+                startTimer();
+                timerRunning = true;
+            }
             if (toggledCards.length < 2) {
                 toggleCard(eventTarget);
                 addToggleCard(eventTarget);
