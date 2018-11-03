@@ -158,6 +158,28 @@ function gameWinner() { //Actions when game is won
     stopTimer();
 }
 
+function swapModal() { //Toggles hide class to show or hide modal
+    const modal = document.querySelector('.modal-bkgnd');
+    modal.classList.toggle('hide');
+}
+
+function winningStats() { //Updates modal display with winning stats
+    const timeStat = document.querySelector('.modal-time');
+    const starStat = document.querySelector('.modal-stars');
+    const moveStat = document.querySelector('.modal-moves');
+    const clockTime = document.querySelector('.clock').innerHTML;
+
+    timeStat.innerHTML = `Time = ${clockTime}`;
+    starStat.innerHTML = `Stars = ${stars}`;
+    moveStat.innerHTML = `Moves = ${moves}`;
+}
+
+function winningModal() { //Manages the modal's display and button functions
+    swapModal();
+    winningStats();
+
+}
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)

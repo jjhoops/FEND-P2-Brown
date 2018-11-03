@@ -110,3 +110,65 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+/* Styles for the modal display upon win */
+
+.modal-bkgnd {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.modal-body {
+    position: relative;
+    width: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -80%);
+    background: #ffffff;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    border-bottom: 2px solid gray;
+}
+
+.modal-heading {
+    font-size: 1.5rem;
+}
+
+.modal-close {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.modal-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    font-size: 1.5rem;
+    border-bottom: 2px solid gray;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.modal-button {
+    width: 75px;
+    height: 30px;
+    font-size: 1.2rem;
+}
+
+.hide {
+    display: none;
+}
