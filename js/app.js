@@ -9,6 +9,9 @@ var timer = 0; // Game timer
 var timerRunning = false;
 var timeDisplay;
 var stars = 3; // Keep track of stars remaining
+const resetButton = document.querySelector('.restart');
+var matchedPairs = 0; // Keep track of matched pairs for game win
+const winningPairs = 8; // Max possible # of pairs
 
 /*
  * Display the cards on the page
@@ -123,6 +126,38 @@ function displayTimer() { //Display timer on screen
     }
 }
 
+function resetMoves() { //Reset moves amd display
+    moves = 0;
+    document.querySelector('.moves').innerHTML = `${moves} moves`;
+}
+
+function resetStars() { //Restore 3 stars for next game
+    stars = 3;
+    const starsDisplay = document.querySelectorAll('.stars li');
+    for (star of starsDisplay) {
+        star.style.display = 'inline'; //Display stars
+    }
+}
+
+function resetTimer() {
+    stopTimer();
+    timer = 0;
+    displayTimer();
+    timerRunning = false;
+}
+
+function resetGame() { //Actions to reset game
+    resetMoves();
+    resetStars();
+    resetTimer();
+    matchedPairs = 0;
+    shuffleCards();
+}
+
+function gameWinner() { //Actions when game is won
+    stopTimer();
+}
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -148,8 +183,12 @@ for (card of cards) {
             }
             if (toggledCards.length === 2) { //Check match and update game functions once 2 selected
                 checkMatch();
+                updateMoves();
                 updateStars();
+                if (matchedPairs === winningPairs) { //Check for winning condition
+                    gameWinner();
+                }
             }
-            }
+        }
     });
 }
