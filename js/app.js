@@ -3,6 +3,7 @@
  */
 var deck = document.querySelector('.deck');
 var cards = document.querySelectorAll('.card');
+var toggledCards = []; // Keep track of cards chosen
 
 /*
  * Display the cards on the page
@@ -36,6 +37,27 @@ function shuffleCards() { //Uses Shuffle function to shuffle deck; reset when sh
 function resetCard(eventTarget) { //Reset card to not showing
     eventTarget.className = 'card';
 }
+
+function toggleCard(eventTarget) { //Toggle classes when card is chosen
+    eventTarget.classList.toggle('open');
+    eventTarget.classList.toggle('show');
+}
+
+function resetCard(eventTarget) { //Reset card to not showing
+    eventTarget.className = 'card';
+}
+
+function addToggleCard(eventTarget) { // Add card to array when selected
+    toggledCards.push(eventTarget);
+}
+
+function clickValidation(eventTarget, eventClasses) {
+    return (
+        toggledCards.length < 2 &&
+        !toggledCards.includes(eventTarget) &&
+        !eventClasses.contains('match')
+    )
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -46,3 +68,15 @@ function resetCard(eventTarget) { //Reset card to not showing
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+for (card of cards) {
+    card.addEventListener('click', function(event) {
+        const eventTarget = event.target;
+        let eventClasses = event.target.classList;
+        if (clickValidation(eventTarget, eventClasses)) {
+            if (toggledCards.length < 2) {
+                toggleCard(eventTarget);
+                addToggleCard(eventTarget);
+            }
+            }
+    });
+}
